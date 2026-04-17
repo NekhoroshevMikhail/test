@@ -17,15 +17,33 @@ def sort_colors():
     values = data.get("values", [])
     order_rule = data.get("order_rule", {})
 
-    sorted_values = sorted(
-        values,
-        key=lambda x: int(order_rule.get(x, -1)),
-        reverse=True
-    )
+    # sorted_values = sorted(
+    #     values,
+    #     key=lambda x: int(order_rule.get(x, 999)),
+    #     reverse=True
+    # )
+
+    sorted_values =sort_values(values, order_rule)
 
     return jsonify({
         "sorted": sorted_values
     })
+
+def sort_values(values, order_rule):
+    buckets = {}
+    for v in values:
+        rank = int(order_rule[v])
+
+        if rank not in buckets:
+            buckets[rank] = []
+
+        buckets[rank].append(v)
+
+    result = []
+    for i in sorted(buckets):
+        result.extend(buckets[i])
+
+    return result
 
 if __name__ == "__main__":
     app.run()
