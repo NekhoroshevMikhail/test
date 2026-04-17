@@ -3,12 +3,6 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-# # порядок важности цветов (пример)
-# ORDER = {
-#     "red": 0,
-#     "green": 1,
-#     "blue": 2
-# }
 
 @app.route("/sort", methods=["POST"])
 def sort_colors():
@@ -16,12 +10,6 @@ def sort_colors():
 
     values = data.get("values", [])
     order_rule = data.get("order_rule", {})
-
-    # sorted_values = sorted(
-    #     values,
-    #     key=lambda x: int(order_rule.get(x, 999)),
-    #     reverse=True
-    # )
 
     sorted_values =sort_values(values, order_rule)
 
