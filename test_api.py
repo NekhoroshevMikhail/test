@@ -9,7 +9,9 @@ def client():
 
 def test_sort_endpoint(client):
     payload = {
-        "values": ["green", "red", "blue"],
+        "values": [{"value":"green", "meta":"a"},
+                   {"value":"red", "meta":"b"},
+                   {"value":"blue", "meta":"c"}],
         "order_rule": {"red": "0", "blue": "1", "green": "2"}
     }
 
@@ -18,7 +20,7 @@ def test_sort_endpoint(client):
     assert response.status_code == 200
     data = response.get_json()
 
-    assert data["sorted"] == ["red", "blue", "green"]
+    assert data["sorted"] == [{"value":"red", "meta":"b"}, {"value":"blue", "meta":"c"}, {"value":"green", "meta":"a"}]
 
 def test_sort_empty_request(client):
     response = client.post("/sort", json={})

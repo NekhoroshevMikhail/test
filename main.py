@@ -20,7 +20,7 @@ def sort_colors():
 def sort_values(values, order_rule):
     buckets = {}
     for v in values:
-        rank = int(order_rule[v])
+        rank = int(order_rule[v["value"]])
 
         if rank not in buckets:
             buckets[rank] = []
